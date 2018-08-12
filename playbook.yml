@@ -9,7 +9,7 @@
       instance_type: t2.micro
       security_group: chuckwired
       image: ami-b2b55cd5
-      keypair: rbrown-jjmtech
+      keypair:
       region: eu-west-2 
       count: 1
 
