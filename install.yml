@@ -1,0 +1,30 @@
+---
+  - hosts: chuckwired
+    become: true
+    gather_facts: false
+    remote_user: ec2-user
+    connection: ssh
+    tasks:
+     - name: Install Docker and git
+       yum:
+         name: "{{ item }}"
+       with_items:
+         - git
+         - docker
+
+     - name: Install docker compose
+       get_url: url=https://github.com/docker/compose/releases/download/1.22.0/docker-compose-Linux-x86_64 dest=/usr/local/bin/docker-compose mode=0755
+
+     - name: start docker service
+       service:
+         name: docker
+         state: started
+
+     - name: Copy docker-compose.yml and monitor.sh
+       copy: src={{ item.src }} dest={{ item.dest }} mode={{ item.mode }}
+       with_items:
+         - { src: monitor.sh, dest: /home/ec2-user/chuckwired/, mode: u=rwx,g=r,o=r}
+         - { src: docker-compose.yml, dest: /home/ec2-user/chuckwired/, mode: u=r,g=r,o=r}
+
+     - name: Start Chuckwired Application
+       command: /usr/local/bin/docker-compose -f /home/ec2-user/chuckwired/docker-compose.yml -p chuckwired up -d

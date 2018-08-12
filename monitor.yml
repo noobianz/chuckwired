@@ -1,0 +1,12 @@
+---
+  - hosts: chuckwired
+    become: true
+    gather_facts: false
+    remote_user: ec2-user
+    connection: ssh
+    tasks:
+     - name: Start container monitoring on the docker host
+       shell: ( /home/ec2-user/chuckwired/monitor.sh & )
+       async: 10
+       poll: 0
+  

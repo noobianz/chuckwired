@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+ chuck_1:
+   image: chuckwired/port-tutorial
+   container_name: chuck_1
+   command: /usr/bin/nodejs /home/hello-world/app.js
+   ports:
+     - "8080:3000"
+ chuck_2:
+   image: chuckwired/port-tutorial
+   container_name: chuck_2
+   command: /usr/bin/nodejs /home/hello-world/app.js
+   ports:
+     - "8081:3000"
+ chuck_3:
+   image: chuckwired/port-tutorial
+   container_name: chuck_3
+   command: /usr/bin/nodejs /home/hello-world/app.js
+   ports:
+     - "8082:3000"
