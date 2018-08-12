@@ -33,14 +33,13 @@
  
     cd chuckwired
  
- 3. Ansible requires the ssh key used to create the EC2 instance so it can provision the instance.
-    Copy your aws .pem file into the chuckwired directory and set the permissions on it to 0600.
-    
-    chmod 600 <FILENAME>.pem
- 
-    then edit the playbook.yml file and add the name of your keypair to the keypair variable.
-    
-    keypair: your_key_pair
+ 3. When creating an EC2 instance AWS requires that you create or use an existing key pair.  You must have a pre-existing keypair
+    to use this repository.  The private key from this keypair is required by Ansible to create and then provision an instance.  
+
+    Playbook.yml file must be edited and the name of the keypair added to the "keypair:" variable (Line 12 of playbook.yml).
+    To restrict access to a single IP replace the 0.0.0.0/0 values on lines 29,33,37,41,45 & 49 with the address required 
+
+    The private key (.pem) file must be copied into the chuckwired directory and the permissions set to 0600
  
  4. Execute the run.sh script
  
